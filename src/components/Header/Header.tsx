@@ -7,7 +7,6 @@ export function Header() {
   const currentDate = format(new Date(), "EEEEEE, d, MMM", {
     locale: ptBR,
   });
-  console.log(currentDate);
   return (
     <header className={styles.headerContainer}>
       <img src="/logo.svg" alt="Podcastr" />
