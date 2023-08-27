@@ -4,6 +4,8 @@ import Link from "next/link";
 import { format, parseISO } from "date-fns";
 import { convertDurationToTimeString } from "@/utils/convertDurationToTimeString";
 
+import { ParsedUrlQuery } from "querystring";
+
 import { api } from "@/services/api";
 import { ptBR } from "date-fns/locale";
 
@@ -65,13 +67,22 @@ export default function Episodes({ episode }: EpisodeProps) {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   return {
-    paths: [],
+    paths: [
+      {
+        params: {
+          slug: "a-importancia-da-contribuicao-em-open-source",
+        },
+      },
+    ],
     fallback: "blocking",
   };
 };
 
+interface Params extends ParsedUrlQuery {
+  slug: string;
+}
 export const getStaticProps: GetStaticProps = async (ctx) => {
-  const { slug } = ctx.params;
+  const { slug } = ctx.params as Params;
 
   const { data } = await api.get(`/episodes/${slug}`);
 

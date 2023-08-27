@@ -1,5 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { GetStaticProps } from "next"; // faz tipagem da função toda, tanto param como retorno
+import { PlayerContext } from "@/contexts/PlayerContext";
+import { useContext } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { format, parseISO } from "date-fns";
@@ -27,6 +29,8 @@ type HomeProps = {
 };
 
 export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
+  const { play } = useContext(PlayerContext);
+
   return (
     <div className={styles.homepage}>
       <section className={styles.latestEpisodes}>
@@ -52,7 +56,7 @@ export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
                   <span>{episode.durationAsString}</span>
                 </div>
 
-                <button type="button">
+                <button type="button" onClick={() => play(episode)}>
                   <img src="/play-green.svg" alt="Tocar episódio" />
                 </button>
               </li>
@@ -112,13 +116,13 @@ export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
 export const getStaticProps: GetStaticProps = async () => {
   const { data } = await api.get("/episodes", {
     params: {
-      //_limit: 12,
+      _limit: 12,
       _sort: "published_at",
       _order: "desc",
     },
   });
 
-  const episodes = data.map((episode) => {
+  const episodes = data.map((episode: any) => {
     return {
       id: episode.id,
       title: episode.title,
