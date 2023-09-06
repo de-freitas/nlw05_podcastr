@@ -3,8 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { format, parseISO } from "date-fns";
 import { convertDurationToTimeString } from "@/utils/convertDurationToTimeString";
-
 import { ParsedUrlQuery } from "querystring";
+import { useContext } from "react";
+
+import { PlayerContext } from "@/contexts/PlayerContext";
 
 import { api } from "@/services/api";
 import { ptBR } from "date-fns/locale";
@@ -28,6 +30,8 @@ type EpisodeProps = {
 };
 
 export default function Episodes({ episode }: EpisodeProps) {
+  const { play } = useContext(PlayerContext);
+
   return (
     <div className={styles.episode}>
       <div className={styles.thumbnailContainer}>
@@ -43,11 +47,13 @@ export default function Episodes({ episode }: EpisodeProps) {
           style={{ objectFit: "cover" }}
           alt="thumbnail"
         />
-        <Link href="/">
-          <button type="button" id={styles.rightButton}>
-            <img src="/play.svg" alt="Tocar episódio" />
-          </button>
-        </Link>
+        <button
+          type="button"
+          id={styles.rightButton}
+          onClick={() => play(episode)}
+        >
+          <img src="/play.svg" alt="Tocar episódio" />
+        </button>
       </div>
 
       <header>
