@@ -43,16 +43,21 @@ export function Player() {
   }, [isPlaying]);
 
   function setupProgressListener() {
-    audioRef.current.currentTime = 0;
-
-    audioRef.current?.addEventListener("timeupdate", () =>
-      setProgress(Math.floor(audioRef.current.currentTime))
-    );
+    if (audioRef.current) {
+      audioRef.current.currentTime = 0;
+      audioRef.current.addEventListener("timeupdate", () => {
+        if (audioRef.current) {
+          setProgress(Math.floor(audioRef.current.currentTime));
+        }
+      });
+    }
   }
 
   function handleSeek(amount: number) {
-    audioRef.current.currentTime = amount;
-    setProgress(amount);
+    if (audioRef.current) {
+      audioRef.current.currentTime = amount;
+      setProgress(amount);
+    }
   }
 
   function handleEpisodeEnded() {
@@ -97,7 +102,7 @@ export function Player() {
             <Slider
               max={episode.duration}
               value={progress}
-              onChange={handleSeek}
+              onChange={() => handleSeek}
               trackStyle={{ backgroundColor: "#04D361" }}
               railStyle={{ backgroundColor: "#9F75FF" }}
               handleStyle={{ borderColor: "#04D361", borderWidth: 4 }}

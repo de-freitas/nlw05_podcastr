@@ -3,6 +3,7 @@ import { useContext } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Head from "next/head";
+import { useRouter } from "next/router";
 
 import { format, parseISO } from "date-fns";
 import { ParsedUrlQuery } from "querystring";
@@ -32,6 +33,11 @@ type EpisodeProps = {
 
 export default function Episodes({ episode }: EpisodeProps) {
   const { play } = useContext(PlayerContext);
+
+  const router = useRouter();
+  if (router.isFallback) {
+    return <p>Carregando...</p>;
+  }
 
   return (
     <div className={styles.episode}>
@@ -76,14 +82,24 @@ export default function Episodes({ episode }: EpisodeProps) {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  return {
-    paths: [
-      {
-        params: {
-          slug: "a-importancia-da-contribuicao-em-open-source",
-        },
+  const { data } = await api.get("/episodes", {
+    params: {
+      _limit: 2,
+      _sort: "published_at",
+      _order: "desc",
+    },
+  });
+
+  const paths = data.map((episode: Episode) => {
+    return {
+      params: {
+        slug: episode.id,
       },
-    ],
+    };
+  });
+
+  return {
+    paths,
     fallback: "blocking",
   };
 };
@@ -91,6 +107,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 interface Params extends ParsedUrlQuery {
   slug: string;
 }
+
 export const getStaticProps: GetStaticProps = async (ctx) => {
   const { slug } = ctx.params as Params;
 
