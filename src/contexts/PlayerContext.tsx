@@ -120,7 +120,3 @@ export function PlayerContextProvider({
     </PlayerContext.Provider>
   );
 }
-
-export const usePlayer = () => {
-  useContext(PlayerContext);
-};

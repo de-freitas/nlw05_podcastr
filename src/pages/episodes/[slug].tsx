@@ -5,10 +5,10 @@ import Link from "next/link";
 import Head from "next/head";
 
 import { format, parseISO } from "date-fns";
-import { convertDurationToTimeString } from "@/utils/convertDurationToTimeString";
 import { ParsedUrlQuery } from "querystring";
 import { ptBR } from "date-fns/locale";
 
+import { convertDurationToTimeString } from "@/utils/convertDurationToTimeString";
 import { PlayerContext } from "@/contexts/PlayerContext";
 import { api } from "@/services/api";
 

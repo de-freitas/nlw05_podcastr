@@ -1,11 +1,10 @@
-import "../styles/global.scss";
-
 import type { AppProps } from "next/app";
 
 import { PlayerContextProvider } from "@/contexts/PlayerContext";
 import { Header } from "../components/Header/Header";
 import { Player } from "../components/Player/Player";
 
+import "../styles/global.scss";
 import styles from "../styles/app.module.scss";
 
 export default function App({ Component, pageProps }: AppProps) {

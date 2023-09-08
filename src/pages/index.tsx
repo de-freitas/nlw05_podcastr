@@ -1,14 +1,16 @@
 /* eslint-disable @next/next/no-img-element */
-import { useContext } from "react";
-import { GetStaticProps } from "next"; // faz tipagem da função toda, tanto param como retorno
-import { PlayerContext } from "@/contexts/PlayerContext";
 import Image from "next/image";
 import Head from "next/head";
 import Link from "next/link";
-import { format, parseISO } from "date-fns";
+import { useContext } from "react";
+import { GetStaticProps } from "next"; // faz tipagem da função toda, tanto param como retorno
+
 import ptBR from "date-fns/locale/pt-BR";
+import { format, parseISO } from "date-fns";
+
 import { api } from "../services/api";
 import { convertDurationToTimeString } from "../utils/convertDurationToTimeString";
+import { PlayerContext } from "@/contexts/PlayerContext";
 
 import styles from "./home.module.scss";
 
