@@ -2,7 +2,7 @@
 
 ### **About:**
 
-"**Podcastr**" was developed during NextLevelWeek 5, promoted by [Rocketseat](https://www.rocketseat.com.br/). In total there were 5 classes with with a lot of technical content and lots of hands-on work to develop the project. It was made in React, covering current technologies such as Next.js, Typescript and SCSS.
+"**Podcastr**" was developed during NextLevelWeek 5, promoted by [Rocketseat](https://www.rocketseat.com.br/). In total there were 5 classes with a lot of technical content and lots of hands-on work to develop the project. It was made in React, covering current technologies such as Next.js, Typescript and SCSS.
 
 
 ***
